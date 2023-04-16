@@ -1,0 +1,17 @@
+.footer__info {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: calc(22 / 18);
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0;
+    padding: 67px 0 60px;
+}
+
+@media screen and (max-width: 1023px) {
+    .footer__info {
+        padding: 48px 0px 36px 19px;
+        font-size: 14px;
+        line-height: calc(17 / 14);        
+    }    
+}

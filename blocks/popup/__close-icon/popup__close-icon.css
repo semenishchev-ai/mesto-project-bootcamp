@@ -1,0 +1,19 @@
+.popup__close-icon {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    margin: -40px -479px 0 0;
+    transition: opacity .4s ease-in;
+}
+
+.popup__close-icon:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 1023px) {
+    .popup__close-icon {
+        width: 20px;
+        height: 20px;
+        margin: -36px -262px 0 0;
+    }
+}

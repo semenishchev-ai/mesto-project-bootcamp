@@ -1,9 +1,7 @@
 .elements__caption {
     width: 100%;
-    height: 79px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     display: flex;
     justify-content: space-between;
+    padding: 25px 0 25px;
+    padding-left: 21px;
 }

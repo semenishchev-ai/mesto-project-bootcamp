@@ -4,12 +4,13 @@
     width: 22px;
     height: 19px;
     align-self: center;
-    background-color: #fff;
+    background-color: transparent;
     border: 0;
     background-image: url(../../../images/elements/Vector.svg);
     transition: opacity .4s ease-in;
+    cursor: pointer;
 }
 
 .elements__button:hover {
-    opacity: .6;
+    opacity: .5;
 }

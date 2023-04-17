@@ -12,6 +12,7 @@
     line-height: calc(22/ 18);
     text-align: center;
     transition: opacity .4s ease-in;
+    cursor: pointer;
 }
 
 .popup__button:hover {

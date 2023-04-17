@@ -1,0 +1,18 @@
+.input__name {
+    padding: 0;
+    padding-top: 36px;
+    height: 40px;
+    border: none;
+    width: 358px;
+    border-bottom: 1px solid #000;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: calc(17 / 14);    
+}
+
+@media screen and (max-width: 1023px) {
+    .input__name {
+        padding-top: 63px;
+        width: 238px;
+    }
+}

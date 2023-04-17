@@ -1,6 +1,8 @@
 .footer {
     color: #545454;
-    width: 880px;
+    max-width: 880px;
+    align-self: flex-start;
+    padding-left: calc(50% - 440px);
 }
 
 @media screen and (max-width: 1023px) {

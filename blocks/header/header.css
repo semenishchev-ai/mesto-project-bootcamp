@@ -1,16 +1,12 @@
 .header {
-    width: 880px;  /* нужна именно фиксированная width, так как полоска задана border,
-                    зависящей от ширины. Выносить линию в отдельный класс глупо. Я не понимаю,
-                    для чего здесь нужен max-width, если header фиксирован и меньше минимальной 
-                    ширины предполагаемого экрана в 320px. Не вижу аргументов в пользу max-width 
-                    здесь, в footer так получится (реализовал в footer.css) */
+    max-width: 880px;
+    width: 100%;
     padding: 45px 0 37px;
     border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
 @media screen and (max-width: 1023px) {
     .header {
-        width: 100%;
         padding: 28px 0 27px;
         box-sizing: border-box;
     }

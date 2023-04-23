@@ -3,7 +3,7 @@
     margin: 0;
     border: 0;
     height: 50px;
-    margin-top: 45px;
+    margin: 45px 0 36px;
     width: 358px;
     color: #fff;
     background-color: #000;
@@ -23,7 +23,7 @@
     .popup__button {
         width: 238px;
         height: 46px;
-        margin-top: 42px;
+        margin: 42px 0 25px;
         font-size: 14px;
         line-height: calc(17 / 14);
     }

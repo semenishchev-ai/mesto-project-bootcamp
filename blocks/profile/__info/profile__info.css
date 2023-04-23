@@ -12,8 +12,7 @@
     .profile__info {
         padding: 0;
         padding-top: 26px;
-        grid-template-columns: 235px min-content;
-        grid-template-rows: repeat(2, min-content);
+        grid-template-columns: 235px 18px;
         column-gap: 10px;
     }
 }

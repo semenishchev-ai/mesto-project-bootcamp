@@ -24,67 +24,61 @@
                 <button class="profile__add-button" type="button" aria-label="Добавить"></button>
             </section>
             <section class="elements">
-                <div class="elements__item">
-                    <img class="elements__image" src="./images/elements/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
-                    <div class="elements__caption">
-                        <h2 class="elements__place">Карачаевск</h2>
-                        <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
-                    </div>
-                </div>
-                <div class="elements__item">
-                    <img class="elements__image" src="./images/elements/kirill-pershin-1404681-unsplash.png" alt="Гора Эльбрус">
-                    <div class="elements__caption">
-                        <h2 class="elements__place">Гора Эльбрус</h2>
-                        <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
-                    </div>
-                </div>
-                <div class="elements__item">
-                    <img class="elements__image" src="./images/elements/kirill-pershin-1556355-unsplash.png" alt="Домбай">
-                    <div class="elements__caption">
-                        <h2 class="elements__place">Домбай</h2>
-                        <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
-                    </div>
-                </div>
-                <div class="elements__item">
-                    <img class="elements__image" src="./images/elements/kirill-pershin-1404681-unsplash.png" alt="Гора Эльбрус">
-                    <div class="elements__caption">
-                        <h2 class="elements__place">Гора Эльбрус</h2>
-                        <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
-                    </div>
-                </div>
-                <div class="elements__item">
-                    <img class="elements__image" src="./images/elements/kirill-pershin-1556355-unsplash.png" alt="Домбай">
-                    <div class="elements__caption">
-                        <h2 class="elements__place">Домбай</h2>
-                        <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
-                    </div>
-                </div>
-                <div class="elements__item">
-                    <img class="elements__image" src="./images/elements/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
-                    <div class="elements__caption">
-                        <h2 class="elements__place">Карачаевск</h2>
-                        <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
-                    </div>
-                </div>
             </section>
         </main>
         <footer class="footer">
             <p class="footer__info">&copy; 2020 Mesto Russia</p>
         </footer>
-        <div class="popup">
+        <div class="popup profile-popup">
             <div class="popup__container">
                 <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
                 <h2 class="popup__title">
                     Редактировать профиль
                 </h2>
-                <form class="popup__form">
-                <input class="input input__name" type="text" value="Жак-Ив Кусто">
-                <input class="input input__description" type="text" value="Исследователь океана">
-                <button class="popup__button" type="submit" aria-label="Закрыть">Сохранить</button>
+                <form class="popup__form" name="popup__form">
+                    <input class="popup__input" name="name" type="text" value="Жак-Ив Кусто">
+                    <input class="popup__input" name="description" type="text" value="Исследователь океана">
+                    <button class="popup__button" type="submit" aria-label="Закрыть">Сохранить</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup card-popup">
+            <div class="popup__container">
+                <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+                <h2 class="popup__title">
+                    Новое место
+                </h2>
+                <form class="popup__form" name="popup__form">
+                    <input class="popup__input" name="name" type="text" value="Горный Алтай">
+                    <input class="popup__input" name="description" type="text" value="https://unsplash.com/example.jpg">
+                    <button class="popup__button" type="submit" aria-label="Закрыть">Создать</button>
                 </form>
             </div>
         </div>
     </div>
+    <template id="elements__item">
+        <div class="elements__item">
+            <img class="elements__image" src="./images/elements/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
+            <button class="elements__delete-button" type="button" aria-label="Удалить"></button>
+            <div class="elements__caption">
+                <h2 class="elements__place">Карачаевск</h2>
+                <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
+            </div>
+        </div>
+    </template>
+    <template id="image-popup">
+        <div class="image-popup">
+            <div class="image-popup__container">
+                <button class="image-popup__close-button" type="button" aria-label="Закрыть"></button>
+                <figure class="image-popup__figure">
+                    <img class="image-popup__image" src="./images/elements/kirill-pershin-1088404-unsplash.png"
+                        alt="Карачаевск">
+                    <figcaption class="image-popup__caption">Карачаевск</figcaption>
+                </figure>
+            </div>
+        </div>
+    </template>
+    <script src="index.js"></script>
 </body>
 
 </html>

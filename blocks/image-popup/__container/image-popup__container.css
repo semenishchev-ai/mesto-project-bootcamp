@@ -1,6 +1,5 @@
 .image-popup__container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    position: relative;
+    width: 75vw;
+    background-color: transparent;
+    border-radius: 0;
 }

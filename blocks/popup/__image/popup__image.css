@@ -1,4 +1,4 @@
-.image-popup__image {
+.popup__image {
     width: 100%;
     object-fit: contain;
     max-width: 75vw;

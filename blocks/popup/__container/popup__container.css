@@ -3,9 +3,8 @@
     position: relative;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
     width: 430px;
-    align-self: center;
+    background-color: #fff;
     border-radius: 10px;
 }
 

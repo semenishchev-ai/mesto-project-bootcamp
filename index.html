@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 
-<body>
+<body class="body">
     <div class="page">
         <header class="header">
             <img class="header__logo" src="./images/logo.svg" alt="Лого Mesto">
@@ -36,8 +36,8 @@
                     Редактировать профиль
                 </h2>
                 <form class="popup__form" name="popup__form">
-                    <input class="popup__input" name="name" type="text" value="Жак-Ив Кусто">
-                    <input class="popup__input" name="description" type="text" value="Исследователь океана">
+                    <input class="popup__input" name="name" type="text" value="" placeholder="Имя">
+                    <input class="popup__input" name="description" type="text" value="" placeholder="Описание">
                     <button class="popup__button" type="submit" aria-label="Закрыть">Сохранить</button>
                 </form>
             </div>
@@ -49,36 +49,33 @@
                     Новое место
                 </h2>
                 <form class="popup__form" name="popup__form">
-                    <input class="popup__input" name="name" type="text" value="Горный Алтай">
-                    <input class="popup__input" name="description" type="text" value="https://unsplash.com/example.jpg">
+                    <input class="popup__input" name="name" type="text" value="" placeholder="Название">
+                    <input class="popup__input" name="description" type="text" value="" placeholder="Ссылка">
                     <button class="popup__button" type="submit" aria-label="Закрыть">Создать</button>
                 </form>
+            </div>
+        </div>
+        <div class="popup image-popup">
+            <div class="popup__container image-popup__container">
+                <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
+                <figure class="popup__figure">
+                    <img class="popup__image" src="" alt="">
+                    <figcaption class="popup__caption"></figcaption>
+                </figure>
             </div>
         </div>
     </div>
     <template id="elements__item">
         <div class="elements__item">
-            <img class="elements__image" src="./images/elements/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
+            <img class="elements__image" src="" alt="">
             <button class="elements__delete-button" type="button" aria-label="Удалить"></button>
             <div class="elements__caption">
-                <h2 class="elements__place">Карачаевск</h2>
+                <h2 class="elements__place"></h2>
                 <button class="elements__button" type="button" aria-label="Лайкнуть"></button>
             </div>
         </div>
     </template>
-    <template id="image-popup">
-        <div class="image-popup">
-            <div class="image-popup__container">
-                <button class="image-popup__close-button" type="button" aria-label="Закрыть"></button>
-                <figure class="image-popup__figure">
-                    <img class="image-popup__image" src="./images/elements/kirill-pershin-1088404-unsplash.png"
-                        alt="Карачаевск">
-                    <figcaption class="image-popup__caption">Карачаевск</figcaption>
-                </figure>
-            </div>
-        </div>
-    </template>
-    <script src="index.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

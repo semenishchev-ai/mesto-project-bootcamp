@@ -1,12 +1,10 @@
 .image-popup {
-    visibility: hidden;
+    /* visibility: hidden;
     opacity: 0;
-    transition: visibility 0s 0.4s, opacity 0.4s ease-in;
-    display: flex;
+    transition: visibility 0s 0.4s, opacity 0.4s ease-in; */
     position: absolute;
     width: 100%;
     height: 100%;
-    justify-content: center;
     padding-top: 90px;
     background-color: rgba(0, 0, 0, .9);
 }

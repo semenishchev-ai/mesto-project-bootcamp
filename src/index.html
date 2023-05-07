@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 
 <body class="body">
     <div class="page">
         <header class="header">
-            <img class="header__logo" src="./images/logo.svg" alt="Лого Mesto">
+            <img class="header__logo" src="<%=require('../images/logo.svg')%>" alt="Лого Mesto">
         </header>
         <main class="main">
             <section class="profile">
-                <img class="profile__avatar" src="./images/image.jpg" alt="Жак-Ив Кусто">
+                <img class="profile__avatar" src="<%=require('../images/image.jpg')%>" alt="Жак-Ив Кусто">
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
@@ -30,32 +29,39 @@
             <p class="footer__info">&copy; 2020 Mesto Russia</p>
         </footer>
         <div class="popup profile-popup">
+            <div class="popup__overlay"></div>
             <div class="popup__container">
                 <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
                 <h2 class="popup__title">
                     Редактировать профиль
                 </h2>
-                <form class="popup__form" name="popup__form">
-                    <input class="popup__input" name="name" type="text" value="" placeholder="Имя">
-                    <input class="popup__input" name="description" type="text" value="" placeholder="Описание">
+                <form class="popup__form" name="popup__form" novalidate>
+                    <input class="popup__input" name="name" type="text" value="default" id="name-input" placeholder="Имя" minlength="2" maxlength="40" required>
+                    <span class="popup__form-error name-input-error"></span>
+                    <input class="popup__input" name="description" type="text" value="default" id="description-input" placeholder="Описание" minlength="2" maxlength="200" required>
+                    <span class="popup__form-error description-input-error" ></span>
                     <button class="popup__button" type="submit" aria-label="Закрыть">Сохранить</button>
                 </form>
             </div>
         </div>
         <div class="popup card-popup">
+            <div class="popup__overlay"></div>
             <div class="popup__container">
                 <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
                 <h2 class="popup__title">
                     Новое место
                 </h2>
-                <form class="popup__form" name="popup__form">
-                    <input class="popup__input" name="name" type="text" value="" placeholder="Название">
-                    <input class="popup__input" name="description" type="text" value="" placeholder="Ссылка">
+                <form class="popup__form" name="popup__form" novalidate>
+                    <input class="popup__input" name="name" type="text" id="name-input" placeholder="Название" minlength="2" maxlength="30" required>
+                    <span class="popup__form-error name-input-error"></span>
+                    <input class="popup__input" name="description" type="url"  id="description-input" placeholder="Ссылка" required>
+                    <span class="popup__form-error description-input-error"></span>
                     <button class="popup__button" type="submit" aria-label="Закрыть">Создать</button>
                 </form>
             </div>
         </div>
         <div class="popup image-popup">
+            <div class="popup__overlay"></div>
             <div class="popup__container image-popup__container">
                 <button class="popup__close-icon" type="button" aria-label="Закрыть"></button>
                 <figure class="popup__figure">
@@ -75,7 +81,6 @@
             </div>
         </div>
     </template>
-    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

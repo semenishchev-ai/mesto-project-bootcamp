@@ -6,71 +6,73 @@ import {
 import { closePopup } from './utils.js';
 import { addCard } from './card.js';
 
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, obj) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('popup__input_error');
+    inputElement.classList.add(obj.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('popup__form-error_active');
+    errorElement.classList.add(obj.errorClass);
 };
 
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, obj) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('popup__input_error');
-    errorElement.classList.remove('popup__form-error_active');
+    inputElement.classList.remove(obj.inputErrorClass);
+    errorElement.classList.remove(obj.errorClass);
     errorElement.textContent = '';
 };
 
 export const toggleButtonState = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
-        buttonElement.classList.add('popup__button_inactive');
+        buttonElement.setAttribute("disabled", "disabled");
     } else {
-        buttonElement.classList.remove('popup__button_inactive');
+        buttonElement.removeAttribute("disabled", "disabled");
     }
 };
 
-export const checkInputValidity = (formElement, inputElement) => {
+export const checkInputValidity = (formElement, inputElement, obj) => {
     if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
+        showInputError(formElement, inputElement, inputElement.validationMessage, obj);
     } else {
-        hideInputError(formElement, inputElement);
+        hideInputError(formElement, inputElement, obj);
     }
 };
 
-const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+const setEventListeners = (formElement, obj) => {
+    const inputList = Array.from(formElement.querySelectorAll(obj.inputSelector));
 
-    const buttonElement = formElement.querySelector('.popup__button');
+    const buttonElement = formElement.querySelector(obj.submitButtonSelector);
 
     toggleButtonState(inputList, buttonElement);
 
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', function () {
-            checkInputValidity(formElement, inputElement);
+            checkInputValidity(formElement, inputElement, obj);
             toggleButtonState(inputList, buttonElement);
         });
     });
 };
 
-export const enableValidation = () => {
-    popupForm.addEventListener('submit', function (evt) {
-        evt.preventDefault();
-        if (!hasInvalidInput(profileInputs)) {
-            profileName.textContent = profilePopupName.value;
-            profileDescription.textContent = profilePopupDescription.value;
-            closePopup(profilePopup);
-        }
-    });
-    setEventListeners(popupForm);
+function submitPopup(popup, evt) {
+    if (popup.classList[1] === 'card-popup') {
+        addCard(inputName.value, inputLink.value, false);
+        closePopup(popup);
+        evt.target.reset();
+    }
+    if (popup.classList[1] === 'profile-popup') {
+        profileName.textContent = profilePopupName.value;
+        profileDescription.textContent = profilePopupDescription.value;
+        closePopup(popup);
+    }
+}
 
-    cardsForm.addEventListener('submit', function (evt) {
-        evt.preventDefault();
-        if (!hasInvalidInput(cardsInputs)) {
-            addCard(inputName.value, inputLink.value, false);
-            closePopup(cardsPopup);
-            evt.target.reset();
-        }
+export const enableValidation = (obj) => {
+    const formList = Array.from(document.querySelectorAll(obj.formSelector));
+    formList.forEach((formElement) => {
+        formElement.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+            submitPopup(formElement.closest('.popup'), evt);
+        });
+        setEventListeners(formElement, obj);
     });
-    setEventListeners(cardsForm);
 };
 
 

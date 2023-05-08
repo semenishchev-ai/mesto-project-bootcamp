@@ -1,10 +1,11 @@
-import {sectionElements, cardElementPopup, popupImage } from '../index.js';
+import { sectionElements, cardElementPopup, popupImage } from '../index.js';
 import { openPopup } from './utils.js';
 
 function createCard(name, link) {
     const elementItem = document.querySelector('#elements__item').content;
     const cardElement = elementItem.querySelector('.elements__item').cloneNode(true);
-
+    const cardCaption = cardElementPopup.querySelector('.popup__caption');
+    const cardPlace = cardElement.querySelector('.elements__place');
     const itemImage = cardElement.querySelector('.elements__image');
     itemImage.src = link;
     itemImage.alt = name;
@@ -13,10 +14,10 @@ function createCard(name, link) {
         popupImage.src = link;
         popupImage.alt = name;
 
-        cardElementPopup.querySelector('.popup__caption').textContent = name;
+        cardCaption.textContent = name;
     });
 
-    cardElement.querySelector('.elements__place').textContent = name;
+    cardPlace.textContent = name;
 
     setLikeHandler(cardElement.querySelector('.elements__button'));
     setDeleteHandler(cardElement.querySelector('.elements__delete-button'));

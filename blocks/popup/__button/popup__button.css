@@ -19,6 +19,15 @@
     opacity: .8;
 }
 
+.popup__button:disabled {
+    opacity: .2;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 2px;
+    cursor: initial;
+}
+
 @media screen and (max-width: 1023px) {
     .popup__button {
         width: 238px;

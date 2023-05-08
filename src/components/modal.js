@@ -1,9 +1,8 @@
-export const escClosing = (popups) => {
-    popups.forEach((popup) => {
-        document.addEventListener('keydown', (evt) => {
-            if (evt.key === "Escape") {
-                closePopup(popup);
-            }
-        });
-    })
-}
+import { closePopup } from "./utils.js";
+
+export function closeByEscape(evt) {
+    if (evt.key === 'Escape') {
+      const openedPopup = document.querySelector('.popup_opened')
+      closePopup(openedPopup);
+    }
+  }

@@ -1,7 +1,7 @@
 import './index.css';
 import * as data from './components/validate.js';
 import { closePopup, openPopup } from './components/utils';
-import {addCard} from './components/card.js';
+import { addCard } from './components/card.js';
 import { escClosing } from './components/modal';
 
 export const cardElementPopup = document.querySelector('.image-popup');
@@ -33,15 +33,21 @@ const profileSubmitButton = popupForm.querySelector('.popup__button');
 
 const overlays = Array.from(document.querySelectorAll('.popup__overlay'));
 
+const validationParameters = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inputErrorClass: 'popup__input_error',
+    errorClass: 'popup__form-error_active'
+};
+
 overlays.forEach((overlay) => {
     overlay.addEventListener('click', function () {
-        closePopup(overlay.parentElement);
+        closePopup(overlay.closest('.popup'));
     });
 });
 
 //modal
-
-escClosing(popups);
 
 editButton.addEventListener('click', function () {
     profilePopupName.value =
@@ -49,14 +55,16 @@ editButton.addEventListener('click', function () {
     profilePopupDescription.value =
         profileDescription.textContent;
     profileInputs.forEach((inputElement) => {
-        data.checkInputValidity(popupForm, inputElement);
+        data.checkInputValidity(popupForm, inputElement, validationParameters);
         data.toggleButtonState(profileInputs, profileSubmitButton);
     });
     openPopup(profilePopup);
 });
 
-profileCloseButton.addEventListener('click', function () {
-    closePopup(profilePopup);
+const closeButtons = document.querySelectorAll('.popup__close-icon');
+closeButtons.forEach((button) => {
+    const popup = button.closest('.popup');
+    button.addEventListener('click', () => closePopup(popup));
 });
 
 //cards
@@ -88,15 +96,12 @@ const initialCards = [
     }
 ];
 
-imageCloseButton.addEventListener('click', function () {
-    closePopup(cardElementPopup);
-});
-
 initialCards.forEach(function (item) {
     addCard(item.name, item.link, true);
 });
 
 addButton.addEventListener('click', function () {
+    
     openPopup(cardsPopup);
 });
 
@@ -104,4 +109,4 @@ cardsCloseButton.addEventListener('click', function () {
     closePopup(cardsPopup);
 });
 //validation
-data.enableValidation();
+data.enableValidation(validationParameters);

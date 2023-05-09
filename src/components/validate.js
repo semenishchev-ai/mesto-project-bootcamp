@@ -51,25 +51,11 @@ const setEventListeners = (formElement, obj) => {
     });
 };
 
-function submitPopup(popup, evt) {
-    if (popup.classList[1] === 'card-popup') {
-        addCard(inputName.value, inputLink.value, false);
-        closePopup(popup);
-        evt.target.reset();
-    }
-    if (popup.classList[1] === 'profile-popup') {
-        profileName.textContent = profilePopupName.value;
-        profileDescription.textContent = profilePopupDescription.value;
-        closePopup(popup);
-    }
-}
-
 export const enableValidation = (obj) => {
     const formList = Array.from(document.querySelectorAll(obj.formSelector));
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();
-            submitPopup(formElement.closest('.popup'), evt);
         });
         setEventListeners(formElement, obj);
     });

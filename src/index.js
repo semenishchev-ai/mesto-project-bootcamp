@@ -2,7 +2,6 @@ import './index.css';
 import * as data from './components/validate.js';
 import { closePopup, openPopup } from './components/utils';
 import { addCard } from './components/card.js';
-import { escClosing } from './components/modal';
 
 export const cardElementPopup = document.querySelector('.image-popup');
 export const cardsPopup = document.querySelector('.card-popup');
@@ -10,26 +9,24 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 export const profilePopup = document.querySelector('.profile-popup');
-export const popupForm = profilePopup.querySelector('.popup__form');
+export const profileForm = profilePopup.querySelector('.popup__form');
 export const profilePopupName = profilePopup.querySelector('input[name="name"]');
-export const profileForm = document.querySelector('.profile');
-export const profileName = profileForm.querySelector('.profile__name');
+export const profile = document.querySelector('.profile');
+export const profileName = profile.querySelector('.profile__name');
 export const profilePopupDescription = profilePopup.querySelector('input[name="description"]');
-export const profileDescription = profileForm.querySelector('.profile__description');
+export const profileDescription = profile.querySelector('.profile__description');
 export const popupImage = cardElementPopup.querySelector('.popup__image')
-const profileCloseButton = profilePopup.querySelector('.popup__close-icon');
-const imageCloseButton = cardElementPopup.querySelector('.popup__close-icon');
 export const sectionElements = document.querySelector('.elements');
 
 export const inputName = cardsPopup.querySelector('input[name="name"]');
 export const inputLink = cardsPopup.querySelector('input[name="description"]');
 const cardsCloseButton = cardsPopup.querySelector('.popup__close-icon');
 export const cardsForm = cardsPopup.querySelector('.popup__form');
+const cardsSubmitButton = cardsPopup.querySelector('.popup__button');
 
-const popups = Array.from(document.querySelectorAll('.popup'));
-export const profileInputs = Array.from(popupForm.querySelectorAll('.popup__input'));
+export const profileInputs = Array.from(profileForm.querySelectorAll('.popup__input'));
 export const cardsInputs = Array.from(cardsForm.querySelectorAll('.popup__input'));
-const profileSubmitButton = popupForm.querySelector('.popup__button');
+const profileSubmitButton = profileForm.querySelector('.popup__button');
 
 const overlays = Array.from(document.querySelectorAll('.popup__overlay'));
 
@@ -55,7 +52,7 @@ editButton.addEventListener('click', function () {
     profilePopupDescription.value =
         profileDescription.textContent;
     profileInputs.forEach((inputElement) => {
-        data.checkInputValidity(popupForm, inputElement, validationParameters);
+        data.checkInputValidity(profileForm, inputElement, validationParameters);
         data.toggleButtonState(profileInputs, profileSubmitButton);
     });
     openPopup(profilePopup);
@@ -66,6 +63,19 @@ closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => closePopup(popup));
 });
+
+cardsForm.addEventListener('submit', function(evt) {
+    addCard(inputName.value, inputLink.value, false);
+    closePopup(cardsPopup);
+    evt.target.reset();
+});
+
+profileForm.addEventListener('submit', function() {
+    profileName.textContent = profilePopupName.value;
+    profileDescription.textContent = profilePopupDescription.value;
+    closePopup(profilePopup);
+});
+
 
 //cards
 
@@ -101,7 +111,7 @@ initialCards.forEach(function (item) {
 });
 
 addButton.addEventListener('click', function () {
-    
+    cardsSubmitButton.setAttribute("disabled", "disabled");
     openPopup(cardsPopup);
 });
 

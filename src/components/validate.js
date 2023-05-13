@@ -1,11 +1,3 @@
-import {
-    popupForm, cardsForm, profileInputs, cardsInputs, cardsPopup, profileName,
-    profilePopupName, profileDescription, profilePopupDescription, profilePopup,
-    inputName, inputLink
-} from '../index.js';
-import { closePopup } from './utils.js';
-import { addCard } from './card.js';
-
 const showInputError = (formElement, inputElement, errorMessage, obj) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(obj.inputErrorClass);

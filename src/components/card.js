@@ -1,8 +1,10 @@
-import { sectionElements, cardElementPopup, popupImage } from '../index.js';
+import { sectionElements, cardElementPopup, popupImage, userId } from '../index.js';
+import { deleteCard, deleteLike, putLike } from './api.js';
 import { closePopup, openPopup } from './utils.js';
 
 const confirmationPopup = document.querySelector('.confirmation-popup');
 const confirmButton = confirmationPopup.querySelector('.popup__button');
+let cardToDeleteId;
 
 function createCard(item, isMy) {
     const elementItem = document.querySelector('#elements__item').content;
@@ -24,7 +26,7 @@ function createCard(item, isMy) {
 
     cardPlace.textContent = item.name;
     item.likes.forEach((user) => {
-        if (user._id == "b2364691aa0aca61f977c54e") {
+        if (user._id == userId) {
             likeButton.classList.add('elements__button_active');
         }
     })
@@ -57,46 +59,38 @@ function setLikeHandler(likeButton, id) {
     likeButton.addEventListener('click', function () {
         const likeCounter = likeButton.nextElementSibling;
         if (likeButton.classList.length == 2) {
-            fetch(`https://nomoreparties.co/v1/exp-mipt-fbc-1/cards/likes/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    authorization: 'bd0a4522-502b-47b6-9943-4c4f37572342'
-                }
-            })
-                .then(res => res.json())
-                .then(res => updateLikes(likeCounter, res.likes.length));
+            deleteLike(id)
+                .then(res => {
+                    updateLikes(likeCounter, res.likes.length)
+                    likeButton.classList.toggle('elements__button_active');
+                });
         } else {
-            fetch(`https://nomoreparties.co/v1/exp-mipt-fbc-1/cards/likes/${id}`, {
-                method: 'PUT',
-                headers: {
-                    authorization: 'bd0a4522-502b-47b6-9943-4c4f37572342'
-                }
-            })
-                .then(res => res.json())
-                .then(res => updateLikes(likeCounter, res.likes.length));
+            putLike(id)
+                .then(res => {
+                    updateLikes(likeCounter, res.likes.length)
+                    likeButton.classList.toggle('elements__button_active');
+                });
         }
-        likeButton.classList.toggle('elements__button_active');
     });
 }
 
 function setDeleteHandler(deleteButton, id) {
-    deleteButton.addEventListener('click', function () {
+    deleteButton.addEventListener('click', function () {  // удаляется та карточка, которую передаю теперь по id
+                                                          // у меня  и до этого всё работало, не знаю, почему возникли проблемы с удалением, 
+                                                          // но теперь не должно быть
         deleteButton.classList.add('to-delete');
-        deleteButton.classList.add(`${id}`); //добавлено, чтобы потом найти в eventListener ниже
+        cardToDeleteId = id;
         openPopup(confirmationPopup);
     });
 }
 
 confirmButton.addEventListener('click', () => {
-    const currentDeleter = document.querySelector('.to-delete');
-    currentDeleter.classList.remove('to-delete');
-    fetch(`https://nomoreparties.co/v1/exp-mipt-fbc-1/cards/${currentDeleter.classList[1]}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: 'bd0a4522-502b-47b6-9943-4c4f37572342'
-        }
-    })
-    const listItem = currentDeleter.closest('.elements__item');
-    listItem.remove();
-    closePopup(document.querySelector('.popup_opened'));
+    deleteCard(cardToDeleteId)
+        .then(() => {
+            const currentDeleter = document.querySelector('.to-delete');
+            currentDeleter.classList.remove('to-delete');
+            const listItem = currentDeleter.closest('.elements__item');
+            listItem.remove();
+            closePopup(document.querySelector('.popup_opened'));
+        })
 })

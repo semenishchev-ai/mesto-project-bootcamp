@@ -2,7 +2,7 @@ import './index.css';
 import * as data from './components/validate.js';
 import { closePopup, openPopup } from './components/utils';
 import { addCard } from './components/card.js';
-import { getInitCards, getProfile, postCard, updateAvatar, updatePorfile } from './api.js';
+import { getInitCards, getProfile, postCard, updateAvatar, updatePorfile } from './components/api.js';
 
 export const cardElementPopup = document.querySelector('.image-popup');
 export const cardsPopup = document.querySelector('.card-popup');
@@ -23,7 +23,8 @@ const profileAvatar = profile.querySelector('.profile__edit-overlay');
 const avatarPopup = document.querySelector('.avatar-popup');
 const avatarForm = avatarPopup.querySelector('.popup__form');
 const avatarLink = avatarForm.querySelector('.popup__input');
-const avatarSubmitButton = avatarPopup.querySelector('.popup__button');
+
+export let userId;
 
 export const inputName = cardsPopup.querySelector('input[name="name"]');
 export const inputLink = cardsPopup.querySelector('input[name="description"]');
@@ -83,38 +84,46 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closePopup(popup));
 });
 
-profileForm.addEventListener('submit', () => {
-    profileName.textContent = profilePopupName.value;
-    profileDescription.textContent = profilePopupDescription.value;
-    renderLoading(true, avatarSubmitButton, "save");
+profileForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const submitButton = evt.submitter;
+    renderLoading(true, submitButton, "save");
     updatePorfile(profilePopupName.value, profilePopupDescription.value)
-        .finally(() => renderLoading(false, avatarSubmitButton, "save"))
+        .then(() => {
+            profileName.textContent = profilePopupName.value;
+            profileDescription.textContent = profilePopupDescription.value;
+            closePopup(profilePopup);
+        })
+        .finally(() => renderLoading(false, submitButton, "save"))
         .catch((err) => {
             console.log(err);
         });
-    closePopup(profilePopup);
 });
 
 profileAvatar.addEventListener('click', () => {
     openPopup(avatarPopup);
 })
 
-avatarForm.addEventListener('submit', () => {
-    profileImage.src = avatarLink.value;
-    renderLoading(true, profileSubmitButton, "save");
+avatarForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const submitButton = evt.submitter;
+    renderLoading(true, submitButton, "save");
     updateAvatar(avatarLink.value)
-        .finally(() => renderLoading(false, profileSubmitButton, "save"))
+        .then(() => {
+            profileImage.src = avatarLink.value;
+            closePopup(avatarPopup);
+        })
+        .finally(() => renderLoading(false, submitButton, "save"))
         .catch((err) => {
             console.log(err);
         });
-    closePopup(avatarPopup);
 })
 
 
 //cards
 function makeCards(cardsArray) {
     cardsArray.forEach(function (item) {
-        if (item.owner._id == "b2364691aa0aca61f977c54e") {
+        if (item.owner._id == userId) {
             addCard(item, true, true);
         } else {
             addCard(item, true, false);
@@ -122,20 +131,8 @@ function makeCards(cardsArray) {
     });
 }
 
-getInitCards()
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(res => makeCards(res))
-    .catch((err) => {
-        console.log(err);
-    });
 
 addButton.addEventListener('click', function () {
-    cardsSubmitButton.setAttribute("disabled", "disabled");
     openPopup(cardsPopup);
 });
 
@@ -145,18 +142,15 @@ cardsForm.addEventListener('submit', function (evt) {
     renderLoading(true, cardsSubmitButton, "create");
     postCard(currentName, currentLink)
         .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
+            addCard({ name: currentName, link: currentLink, _id: res._id, likes: res.likes }, false, true)
+            closePopup(cardsPopup);
+            evt.target.reset();
+            cardsSubmitButton.setAttribute("disabled", "disabled");
         })
-        .then(res => addCard({ name: currentName, link: currentLink, _id: res._id, likes: res.likes }, false, true))
         .finally(() => renderLoading(false, cardsSubmitButton, "create"))
         .catch((err) => {
             console.log(err);
         });
-    closePopup(cardsPopup);
-    evt.target.reset();
 });
 
 //validation
@@ -167,17 +161,14 @@ const assignProfile = (obj) => {
     profileName.textContent = obj.name;
     profileDescription.textContent = obj.about;
     profileImage.src = obj.avatar;
+    userId = obj._id;
 }
 
-getProfile()
-    .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
+Promise.all([getProfile(), getInitCards()])
+    .then(([userData, cards]) => {
+        assignProfile(userData)
+        makeCards(cards)
     })
-    .then(res => assignProfile(res))
-    .catch((err) => {
+    .catch(err => {
         console.log(err);
     });
-

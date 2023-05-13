@@ -1,3 +1,6 @@
+import { checkResponse } from "./utils.js"
+
+
 const config = {
     baseUrl: 'https://nomoreparties.co/v1/exp-mipt-fbc-1',
     headers: {
@@ -9,13 +12,13 @@ const config = {
 export const getProfile = () => {
     return fetch(`${config.baseUrl}/users/me`, {
         headers: { authorization: config.headers.authorization }
-    })
+    }) .then(checkResponse)
 }
 
 export const getInitCards = () => {
     return fetch(`${config.baseUrl}/cards`, {
         headers: { authorization: config.headers.authorization }
-    })
+    }) .then(checkResponse)
 }
 
 export const postCard = (currentName, currentLink) => {
@@ -26,7 +29,7 @@ export const postCard = (currentName, currentLink) => {
             name: currentName,
             link: currentLink
         })
-    })
+    }) .then(checkResponse)
 }
 
 export const updateAvatar = (url) => {
@@ -36,7 +39,7 @@ export const updateAvatar = (url) => {
         body: JSON.stringify({
             avatar: url
         })
-    })
+    }) .then(checkResponse)
 }
 
 export const updatePorfile = (newName, newAbout) => {
@@ -47,5 +50,28 @@ export const updatePorfile = (newName, newAbout) => {
             name: newName,
             about: newAbout
         })
-    })
+    }) .then(checkResponse)
+}
+
+export const putLike = (id) => {
+    return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+        method: 'PUT',
+        headers: { authorization: config.headers.authorization }
+    }) .then(checkResponse)
+}
+
+export const deleteLike = (id) => {
+    return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+        method: 'DELETE',
+        headers: { authorization: config.headers.authorization }
+    }) .then(checkResponse)
+}
+
+export const deleteCard = (card_id) => {
+    return fetch(`https://nomoreparties.co/v1/exp-mipt-fbc-1/cards/${card_id}`, {
+        method: 'DELETE',
+        headers: {
+            authorization: 'bd0a4522-502b-47b6-9943-4c4f37572342'
+        }
+    }) .then(checkResponse)
 }

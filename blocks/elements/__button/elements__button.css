@@ -1,9 +1,8 @@
 .elements__button {
     padding: 0;
-    margin-right: 20px;
+    margin-top: -3px;
     width: 22px;
     height: 19px;
-    align-self: center;
     background-color: transparent;
     border: 0;
     background-image: url(../../../images/elements/Vector.svg);

@@ -1,0 +1,8 @@
+.elements__counter {
+    margin: 0;
+    padding: 3px auto 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: calc(16 / 13);
+    text-align: center;    
+}

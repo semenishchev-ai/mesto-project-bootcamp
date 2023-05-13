@@ -1,0 +1,18 @@
+.profile__edit-overlay {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-image: url(../../../images/Vector-1.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 26px 26px;
+    background-color: rgba(0, 0, 0, .8);
+    opacity: 0;
+    transition: opacity .2s ease-in;
+}
+
+.profile__edit-overlay:hover {
+    cursor: pointer;
+    opacity: 1;
+}
